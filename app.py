@@ -1,34 +1,42 @@
 from flask import Flask
-
+import datetime
 app = Flask(__name__)
 
-print("pr3")
 
 @app.route('/')
 
-def print_item(box, itemname):
-    print(f'There is a price of {itemname}: ')
-    return(f"{box[itemname]}")
+def data_split_zero(d1):
+    zerosp = d1.split('-')
+    return(zerosp)
 
-def add_bread(box):
-    itemname = 'bread'
-    itemvalue = 10
-    box[itemname] = itemvalue
-    return(f'{box}')
+def data_split_today(d2):
+    todaysp = d2.split('-')
+    return(todaysp)
 
-def print_basket_len(box):
-    return(f'{len(box)}')
+def zero_datatime(zerosp):
+    zerodt = datetime.date(int(zerosp[0]),int(zerosp[1]),int(zerosp[2]))
+    return(zerodt)
 
-def print_basket(box):
-    return(f"{box}")
+def today_datatime(todaysp):
+    todaydt = datetime.date(int(todaysp[0]),int(todaysp[1]),int(todaysp[2]))
+    return(todaydt)
+
+def calc(d1, d2):
+    res = abs(d2-d1).days
+    res=int(res/7)
+    return res
 
 
-box = {'potato': 20, 'meat':70, 'cheese':35, 'tea':16}
+zero = "2022-01-01" #y-m-d
+today = "2022-12-19"
+zerosp=data_split_zero(zero)
+todaysp=data_split_today(today)
 
-print_basket(box)
-print_basket_len(box)
-add_bread(box)
-print_item(box, 'meat')
+zerodt=zero_datatime(zerosp)
+print(zerodt)
+todaydt=today_datatime(todaysp)
+
+final=calc(zerodt, todaydt)
 
 if __name__ == '__main__':
     app.run(debug=True)
